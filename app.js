@@ -72,21 +72,16 @@ const studentDelete =  (req, res) => {
     });
 }
 
-//GET
-app.get("/api/students",studentList);
+//Route
+app.route('/api/students')
+   .get(studentList)
+   .post(newStudent);
 
-//POST
-app.post("/api/students", newStudent);
+app.route('/api/students/:id')
+   .get(studentDetail)
+   .put(studentUpdate)
+   .delete(studentDelete);
 
-//GET by id
-app.get("/api/students/:id", studentDetail);
-
-//PUT by id
-app.put("/api/students/:id", studentUpdate);
-
-//DELETE by id
-app.delete("/api/students/:id", studentDelete);
-   
 
 const port = 3000;
 
