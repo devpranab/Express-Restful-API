@@ -4,7 +4,7 @@ const app = express();
 const studentRouter = require("./routers/studentRouter");
 
 //middlewares
-app.use(express.json()); //data process as json
+app.use(express.json()); //POST/PUT/PATCH -> json object -> req.body
 app.use("/api/students", studentRouter);
 
 
