@@ -1,6 +1,6 @@
 //Use express
 const express = require("express");
-const fs = require("fs");
+const db = require("./db/db");
 const app = express();
 
 //middlewares
@@ -16,22 +16,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/students", (req, res) => {
-    fs.readFile("./database/db.json", "utf-8", (err, data) => {
-        const students = JSON.parse(data).students;
+    db.getDbStudents()
+    .then(students => {
         res.send(students);
     })
 });
 
 //POST
 app.post("/api/students", (req, res) => {
-    //console.log(req.body);
     const student = req.body;
-    fs.readFile("./database/db.json", "utf-8", (err, data) => {
-        const students = JSON.parse(data);
-        students.students.push(student);
-      fs.writeFile("./database/db.json", JSON.stringify(students), (err) => {
+    db.getDbStudents()
+    .then(students => {
+        students.push(student);
+        db.insertDbStudents(students)
+    .then(data => {
         res.send(student);
-      })
+    });
     })
 })
 
@@ -39,7 +39,7 @@ const port = 3000;
 
 app.listen(port, () => {
 
-    console.log(`Listening on port 3000`);
+    console.log(`Listening on port ${port}`);
 })
 
 //nodemon app - run
