@@ -1,5 +1,6 @@
 //Use express
 const express = require("express");
+const fs = require("fs");
 const app = express();
 
 // app.get()
@@ -11,12 +12,11 @@ app.get("/", (req, res) => {
     res.send("Hello from express js!");
 });
 
-app.get("/1", (req, res) => {
-    res.send("Hello from 1 express js!");
-});
-
-app.get("/2", (req, res) => {
-    res.send("Hello from 2 express js!");
+app.get("/students", (req, res) => {
+    fs.readFile("./database/db.json", "utf-8", (err, data) => {
+        const students = JSON.parse(data).students;
+        res.send(students);
+    })
 });
 
 const port = 3000;
