@@ -42,7 +42,7 @@ app.get("/api/students/:id", (req, res) => {
     db.getDbStudents()
     .then(students => {
         const student = students.find(s => s.id === id);
-        if(!student) res.status(404).send("No student found with this is!");
+        if(!student) res.status(404).send("No student found with this id!");
         else res.send(student);
     })
 })
@@ -54,13 +54,26 @@ app.put("/api/students/:id", (req, res) => {
     db.getDbStudents()
     .then(students => {
         const student = students.find(s => s.id === id);
-        if(!student) res.status(404).send("No student found with this is!");
+        if(!student) res.status(404).send("No student found with this id!");
         else {
             const i = students.findIndex(s => s.id === id);
             students[i] = updatedData;
             db.insertDbStudents(students)
             .then(msg => res.send(updatedData));
         }
+    });
+})
+
+//DELETE by id
+app.delete("/api/students/:id", (req, res) => {
+    const id = parseInt(req.params.id); 
+    db.getDbStudents()
+    .then(students => {
+        const student = students.find(s => s.id === id);
+        if(!student) res.status(404).send("No student found with this id!");
+        const updatedStudents = students.filter(s => s.id !== id);
+        db.insertDbStudents(updatedStudents)
+        .then(msg => res.send(student));
     });
 })
    
