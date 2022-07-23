@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
     res.send("Hello from express js!");
 });
 
+//GET
 app.get("/api/students", (req, res) => {
     db.getDbStudents()
     .then(students => {
@@ -32,6 +33,17 @@ app.post("/api/students", (req, res) => {
     .then(data => {
         res.send(student);
     });
+    })
+}) 
+
+//GET by id
+app.get("/api/students/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    db.getDbStudents()
+    .then(students => {
+        const student = students.find(s => s.id === id);
+        if(!student) res.status(404).send("No student found with this is!");
+        else res.send(student);
     })
 })
 
