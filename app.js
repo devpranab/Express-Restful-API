@@ -15,16 +15,14 @@ app.get("/", (req, res) => {
     res.send("Hello from express js!");
 });
 
-//GET
-app.get("/api/students", (req, res) => {
-    db.getDbStudents()
-    .then(students => {
-        res.send(students);
-    })
-});
 
-//POST
-app.post("/api/students", (req, res) => {
+
+const studentList = (req, res) => {
+    db.getDbStudents()
+    .then(students => res.send(students));
+};
+
+const newStudent = (req, res) => {
     const student = req.body;
     db.getDbStudents()
     .then(students => {
@@ -33,22 +31,20 @@ app.post("/api/students", (req, res) => {
     .then(data => {
         res.send(student);
     });
-    })
-}) 
+  })
+}
 
-//GET by id
-app.get("/api/students/:id", (req, res) => {
+const studentDetail = (req, res) => {
     const id = parseInt(req.params.id);
     db.getDbStudents()
     .then(students => {
         const student = students.find(s => s.id === id);
         if(!student) res.status(404).send("No student found with this id!");
-        else res.send(student); //or res.sendFile()
+        else res.send(student);
     })
-})
+}
 
-//PUT by id
-app.put("/api/students/:id", (req, res) => {
+const studentUpdate = (req, res) => {
     const id = parseInt(req.params.id);
     const updatedData = req.body; 
     db.getDbStudents()
@@ -62,10 +58,9 @@ app.put("/api/students/:id", (req, res) => {
             .then(msg => res.send(updatedData));
         }
     });
-})
+};
 
-//DELETE by id
-app.delete("/api/students/:id", (req, res) => {
+const studentDelete =  (req, res) => {
     const id = parseInt(req.params.id); 
     db.getDbStudents()
     .then(students => {
@@ -75,7 +70,22 @@ app.delete("/api/students/:id", (req, res) => {
         db.insertDbStudents(updatedStudents)
         .then(msg => res.send(student));
     });
-})
+}
+
+//GET
+app.get("/api/students",studentList);
+
+//POST
+app.post("/api/students", newStudent);
+
+//GET by id
+app.get("/api/students/:id", studentDetail);
+
+//PUT by id
+app.put("/api/students/:id", studentUpdate);
+
+//DELETE by id
+app.delete("/api/students/:id", studentDelete);
    
 
 const port = 3000;
@@ -83,6 +93,4 @@ const port = 3000;
 app.listen(port, () => {
 
     console.log(`Listening on port ${port}`);
-})
-
-//nodemon app - run
+});
