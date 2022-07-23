@@ -5,6 +5,10 @@ const studentRouter = require("./routers/studentRouter");
 
 //middlewares
 app.use(express.json()); //POST/PUT/PATCH -> json object -> req.body
+
+app.use(express.urlencoded({extended: true})); //pass as key - value(Postmon)
+app.use(express.static('public')); //static file - http://localhost:3000/random.txt
+
 app.use((req, res, next) => {
     console.log("I am middleware 1");
     next();
