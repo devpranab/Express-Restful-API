@@ -43,7 +43,7 @@ app.get("/api/students/:id", (req, res) => {
     .then(students => {
         const student = students.find(s => s.id === id);
         if(!student) res.status(404).send("No student found with this id!");
-        else res.send(student);
+        else res.send(student); //or res.sendFile()
     })
 })
 
