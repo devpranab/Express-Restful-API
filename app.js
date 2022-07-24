@@ -48,3 +48,9 @@ app.listen(port, () => {
 
     console.log(`Listening on port ${port}`);
 });
+
+
+
+/*REST (Representationl State Transfer) is an API that defines a set of
+function that Programmers cn use to send requests and receive response using
+the HTTP protocol methods such as GET and POST.*/

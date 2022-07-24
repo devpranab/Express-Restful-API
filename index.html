@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h3>Login page</h3>
-    <form action="/" method="POST">
-<input type="text" name="name" placeholder="Your Name"/>
-<br/>
-<br/>
-<input type="email" name="email" placeholder="Your Email"/>
-<button>Log-in</button>
+    <form action="/api/v1/login" method="POST">
+        <input placeholder="Enter Your Name" type="text" name="name" id="name" />
+        <br />
+        <br />
+        <input placeholder="Enter Your Email" type="email" name="email" id="email" />
+        <br />
+        <br />
+        <input placeholder="Enter Your Password" type="password" name="password" id="password" />
+        <br />
+        <br />
+        <input type="submit" value="Login" />
     </form>
 </body>
+
 </html>
