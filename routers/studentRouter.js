@@ -6,9 +6,18 @@ const studentList = (req, res) => {
  
 };
 
-const newStudent = (req, res) => {
-    const student = req.body;
-  
+const newStudent = async (req, res) => {
+    const student = new Student(req.body);
+    try{
+        const result = await student.save();
+        res.send(result);
+    }catch(err){
+        const errMsgs = [];
+        for(field in err.errors){
+            errMsgs.push(err.errors[field].message);
+        }
+        return res.status(404).send(errMsgs);
+    }
 }
 
 const studentDetail = (req, res) => {
