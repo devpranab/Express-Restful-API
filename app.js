@@ -2,7 +2,13 @@
 const express = require("express");
 const app = express();
 const studentRouter = require("./routers/studentRouter");
-const morgan = require("morgan");
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost:27017/my-student-2", {
+
+})
+.then(() => console.log("Connected to MongoDB!"))
+.catch((err) => console.error("MongoDB Connection failed!"));
 
 //middlewares
 app.use(express.json()); //POST/PUT/PATCH -> json object -> req.body
