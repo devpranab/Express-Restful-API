@@ -303,4 +303,11 @@ app.use(express.json()); //POST/PUT/PATCH -> json object -> req.body
 //app.use(morgan('tiny')); //get req type,url as tiny format
 //app.use(morgan('short')); //get req type,url as short format
 ```
-
+### Combining MongoDB & Express
+- https://github.com/devpranab/Express-Restful-API/commits/main
+1. Structuring Project
+2. Defining Model
+3. Connecting Mongodb
+4. Post Request (Create Document)
+5. Get Request (Read Documents)
+6. Put And Delete (Update And Delete Documents)
